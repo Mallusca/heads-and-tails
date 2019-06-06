@@ -20,16 +20,27 @@ namespace HeadsAndTails
 
             Console.WriteLine("------------------------------------------");
             Console.WriteLine("Игра Орёл и Решка, от \"GOR\"! ");
+            Console.WriteLine("Для начала новой игры нажмите клавишу Enter.");
+            Console.WriteLine("Для выхода нажмите клавишу Esc.");
             Console.WriteLine("------------------------------------------");
-            Console.WriteLine();
 
-            Console.WriteLine("Нажмите Enter для начала новой игры...");
             Console.WriteLine();
-            newGameKeyInfo = Console.ReadKey();
-
+            newGameKeyInfo = Console.ReadKey(true);
+            if (newGameKeyInfo.Key == ConsoleKey.Escape)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    Console.Write(".");
+                    Thread.Sleep(300);
+                }
+                return;
+            }
+            while (newGameKeyInfo.Key != ConsoleKey.Enter && newGameKeyInfo.Key != ConsoleKey.Escape)
+              newGameKeyInfo = Console.ReadKey(true);
             while (newGameKeyInfo.Key == ConsoleKey.Enter)
-            {        
-                do {
+            {
+                do
+                {
                     Console.WriteLine("Угадайте результат(нажмите соответствующую клавишу):");
                     Console.WriteLine("1 - Орел");
                     Console.WriteLine("2 - Решка");
@@ -38,7 +49,7 @@ namespace HeadsAndTails
                     predictedResultKeyInfo = Console.ReadKey();
                     //print key
                     Console.WriteLine();
-                    
+
                     //break line
                     Console.WriteLine();
 
@@ -49,6 +60,15 @@ namespace HeadsAndTails
                     else if (predictedResultKeyInfo.Key == ConsoleKey.D2)
                     {
                         predictedResult = 2;
+                    }
+                    else if (predictedResultKeyInfo.Key == ConsoleKey.Escape)
+                    {
+                        for (int i = 0; i < 10; i++)
+                        {
+                            Console.Write(".");
+                            Thread.Sleep(300);
+                        }
+                        return;
                     }
                     else
                     {
@@ -75,11 +95,22 @@ namespace HeadsAndTails
                 Console.WriteLine(resultMessage);
 
                 Console.WriteLine();
-                Console.WriteLine("Нажмите Enter для начала новой игры...");
+                Console.WriteLine("Нажмите Enter для начала новой игры");
+                Console.WriteLine("");
                 Console.WriteLine();
-                newGameKeyInfo = Console.ReadKey();
+                newGameKeyInfo = Console.ReadKey(true);
+                if (newGameKeyInfo.Key == ConsoleKey.Escape)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        Console.Write(".");
+                        Thread.Sleep(300);
+                    }
+                    return;
+                }
+                while (newGameKeyInfo.Key != ConsoleKey.Enter && newGameKeyInfo.Key != ConsoleKey.Escape)
+                    newGameKeyInfo = Console.ReadKey(true);
             }
-            
         }
     }
 }

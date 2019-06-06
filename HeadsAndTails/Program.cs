@@ -26,10 +26,10 @@ namespace HeadsAndTails
             Console.WriteLine("Нажмите Enter для начала новой игры...");
             Console.WriteLine();
             newGameKeyInfo = Console.ReadKey();
-
             while (newGameKeyInfo.Key == ConsoleKey.Enter)
-            {        
-                do {
+            {
+                do
+                {
                     Console.WriteLine("Угадайте результат(нажмите соответствующую клавишу):");
                     Console.WriteLine("1 - Орел");
                     Console.WriteLine("2 - Решка");
@@ -38,7 +38,7 @@ namespace HeadsAndTails
                     predictedResultKeyInfo = Console.ReadKey();
                     //print key
                     Console.WriteLine();
-                    
+
                     //break line
                     Console.WriteLine();
 
@@ -75,11 +75,14 @@ namespace HeadsAndTails
                 Console.WriteLine(resultMessage);
 
                 Console.WriteLine();
-                Console.WriteLine("Нажмите Enter для начала новой игры...");
+                Console.WriteLine("Нажмите Enter для начала новой игры... Чтобы выйти нажмите Escape");
                 Console.WriteLine();
                 newGameKeyInfo = Console.ReadKey();
+                if (newGameKeyInfo.Key == ConsoleKey.Escape)
+                {
+                    Environment.Exit(0);
+                }
             }
-            
         }
     }
 }

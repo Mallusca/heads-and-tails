@@ -25,7 +25,18 @@ namespace HeadsAndTails
             Console.WriteLine("------------------------------------------");
 
             Console.WriteLine();
-            newGameKeyInfo = Console.ReadKey();
+            newGameKeyInfo = Console.ReadKey(true);
+            if (newGameKeyInfo.Key == ConsoleKey.Escape)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    Console.Write(".");
+                    Thread.Sleep(300);
+                }
+                Environment.Exit(0);
+            }
+            while (newGameKeyInfo.Key != ConsoleKey.Enter && newGameKeyInfo.Key != ConsoleKey.Escape)
+              newGameKeyInfo = Console.ReadKey(true);
             while (newGameKeyInfo.Key == ConsoleKey.Enter)
             {
                 do
@@ -49,6 +60,15 @@ namespace HeadsAndTails
                     else if (predictedResultKeyInfo.Key == ConsoleKey.D2)
                     {
                         predictedResult = 2;
+                    }
+                    else if (predictedResultKeyInfo.Key == ConsoleKey.Escape)
+                    {
+                        for (int i = 0; i < 10; i++)
+                        {
+                            Console.Write(".");
+                            Thread.Sleep(300);
+                        }
+                        Environment.Exit(0);
                     }
                     else
                     {
@@ -78,11 +98,18 @@ namespace HeadsAndTails
                 Console.WriteLine("Нажмите Enter для начала новой игры");
                 Console.WriteLine("");
                 Console.WriteLine();
-                newGameKeyInfo = Console.ReadKey();
+                newGameKeyInfo = Console.ReadKey(true);
                 if (newGameKeyInfo.Key == ConsoleKey.Escape)
                 {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        Console.Write(".");
+                        Thread.Sleep(300);
+                    }
                     Environment.Exit(0);
                 }
+                while (newGameKeyInfo.Key != ConsoleKey.Enter && newGameKeyInfo.Key != ConsoleKey.Escape)
+                    newGameKeyInfo = Console.ReadKey(true);
             }
         }
     }

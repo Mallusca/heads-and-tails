@@ -28,13 +28,13 @@ namespace HeadsAndTails
             newGameKeyInfo = Console.ReadKey();
 
             while (newGameKeyInfo.Key == ConsoleKey.Enter)
-            {
-                Console.WriteLine("Угадайте результат(нажмите соответствующую клавишу):");
-                Console.WriteLine("1 - Орел");
-                Console.WriteLine("2 - Решка");
-                Console.WriteLine();
-
+            {        
                 do {
+                    Console.WriteLine("Угадайте результат(нажмите соответствующую клавишу):");
+                    Console.WriteLine("1 - Орел");
+                    Console.WriteLine("2 - Решка");
+                    Console.WriteLine();
+
                     predictedResultKeyInfo = Console.ReadKey();
                     //print key
                     Console.WriteLine();

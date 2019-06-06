@@ -20,10 +20,10 @@ namespace HeadsAndTails
 
             Console.WriteLine("------------------------------------------");
             Console.WriteLine("Игра Орёл и Решка, от \"GOR\"! ");
+            Console.WriteLine("Для начала новой игры нажмите клавишу Enter.");
+            Console.WriteLine("Для выхода нажмите клавишу Esc.");
             Console.WriteLine("------------------------------------------");
-            Console.WriteLine();
 
-            Console.WriteLine("Нажмите Enter для начала новой игры...");
             Console.WriteLine();
             newGameKeyInfo = Console.ReadKey();
             while (newGameKeyInfo.Key == ConsoleKey.Enter)
@@ -75,7 +75,8 @@ namespace HeadsAndTails
                 Console.WriteLine(resultMessage);
 
                 Console.WriteLine();
-                Console.WriteLine("Нажмите Enter для начала новой игры... Чтобы выйти нажмите Escape");
+                Console.WriteLine("Нажмите Enter для начала новой игры");
+                Console.WriteLine("");
                 Console.WriteLine();
                 newGameKeyInfo = Console.ReadKey();
                 if (newGameKeyInfo.Key == ConsoleKey.Escape)

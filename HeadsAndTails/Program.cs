@@ -33,7 +33,7 @@ namespace HeadsAndTails
                     Console.Write(".");
                     Thread.Sleep(300);
                 }
-                Environment.Exit(0);
+                return;
             }
             while (newGameKeyInfo.Key != ConsoleKey.Enter && newGameKeyInfo.Key != ConsoleKey.Escape)
               newGameKeyInfo = Console.ReadKey(true);
@@ -68,7 +68,7 @@ namespace HeadsAndTails
                             Console.Write(".");
                             Thread.Sleep(300);
                         }
-                        Environment.Exit(0);
+                        return;
                     }
                     else
                     {
@@ -106,7 +106,7 @@ namespace HeadsAndTails
                         Console.Write(".");
                         Thread.Sleep(300);
                     }
-                    Environment.Exit(0);
+                    return;
                 }
                 while (newGameKeyInfo.Key != ConsoleKey.Enter && newGameKeyInfo.Key != ConsoleKey.Escape)
                     newGameKeyInfo = Console.ReadKey(true);

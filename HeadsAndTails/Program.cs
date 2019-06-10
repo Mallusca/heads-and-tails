@@ -18,25 +18,14 @@ namespace HeadsAndTails
             int result = 0;
             Random rand = new Random();
 
-            Console.WriteLine("------------------------------------------");
-            Console.WriteLine("Игра Орёл и Решка, от \"GOR\"! ");
-            Console.WriteLine("Для начала новой игры нажмите клавишу Enter.");
-            Console.WriteLine("Для выхода нажмите клавишу Esc.");
-            Console.WriteLine("------------------------------------------");
-
-            Console.WriteLine();
+            WelcomeInTheGame();
             newGameKeyInfo = Console.ReadKey(true);
             if (newGameKeyInfo.Key == ConsoleKey.Escape)
             {
-                for (int j = 0; j < 10; j++)
-                {
-                    Console.Write(".");
-                    Thread.Sleep(300);
-                }
+                Delay();
                 return;
             }
-            while (newGameKeyInfo.Key != ConsoleKey.Enter && newGameKeyInfo.Key != ConsoleKey.Escape)
-              newGameKeyInfo = Console.ReadKey(true);
+            newGameKeyInfo = KeyCheck(newGameKeyInfo);
             while (newGameKeyInfo.Key == ConsoleKey.Enter)
             {
                 do
@@ -63,11 +52,7 @@ namespace HeadsAndTails
                     }
                     else if (predictedResultKeyInfo.Key == ConsoleKey.Escape)
                     {
-                        for (int i = 0; i < 10; i++)
-                        {
-                            Console.Write(".");
-                            Thread.Sleep(300);
-                        }
+                        Delay();
                         return;
                     }
                     else
@@ -82,11 +67,7 @@ namespace HeadsAndTails
                 // get result
                 result = rand.Next(1, 3);
 
-                for (int i = 0; i < 10; i++)
-                {
-                    Console.Write(".");
-                    Thread.Sleep(300);
-                }
+                Delay();
 
                 Console.WriteLine();
                 Console.WriteLine();
@@ -94,22 +75,49 @@ namespace HeadsAndTails
                 string resultMessage = predictedResult == result ? "Ура, вы угадали!" : "Вы не угадали, попробуйте ещё!";
                 Console.WriteLine(resultMessage);
 
-                Console.WriteLine();
-                Console.WriteLine("Нажмите Enter для начала новой игры");
-                Console.WriteLine("");
-                Console.WriteLine();
+                PlayAgain();
                 newGameKeyInfo = Console.ReadKey(true);
                 if (newGameKeyInfo.Key == ConsoleKey.Escape)
                 {
-                    for (int j = 0; j < 10; j++)
-                    {
-                        Console.Write(".");
-                        Thread.Sleep(300);
-                    }
+                    Delay();
                     return;
                 }
-                while (newGameKeyInfo.Key != ConsoleKey.Enter && newGameKeyInfo.Key != ConsoleKey.Escape)
-                    newGameKeyInfo = Console.ReadKey(true);
+                newGameKeyInfo = KeyCheck(newGameKeyInfo);
+            }
+        }
+
+        private static void PlayAgain()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Нажмите Enter для начала новой игры");
+            Console.WriteLine("");
+            Console.WriteLine();
+        }
+
+        private static void WelcomeInTheGame()
+        {
+            Console.WriteLine("------------------------------------------");
+            Console.WriteLine("Игра Орёл и Решка, от \"GOR\"! ");
+            Console.WriteLine("Для начала новой игры нажмите клавишу Enter.");
+            Console.WriteLine("Для выхода нажмите клавишу Esc.");
+            Console.WriteLine("------------------------------------------");
+
+            Console.WriteLine();
+        }
+
+        private static ConsoleKeyInfo KeyCheck(ConsoleKeyInfo newGameKeyInfo)
+        {
+            while (newGameKeyInfo.Key != ConsoleKey.Enter && newGameKeyInfo.Key != ConsoleKey.Escape)
+                newGameKeyInfo = Console.ReadKey(true);
+            return newGameKeyInfo;
+        }
+
+        private static void Delay()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Console.Write(".");
+                Thread.Sleep(300);
             }
         }
     }

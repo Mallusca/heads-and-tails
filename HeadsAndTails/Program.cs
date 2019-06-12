@@ -8,85 +8,95 @@ using System.Threading.Tasks;
 
 namespace HeadsAndTails
 {
-    class Program
+    class CreateResultMessageAndShow
     {
         static void Main(string[] args)
         {
             ConsoleKeyInfo newGameKeyInfo;
-            ConsoleKeyInfo predictedResultKeyInfo;
+            int? prediction = 0;
             int predictedResult = 0;
-            int result = 0;
+            int calculatedResult = 0;
             Random rand = new Random();
 
-            WelcomeInTheGame();
-            newGameKeyInfo = Console.ReadKey(true);
-            if (newGameKeyInfo.Key == ConsoleKey.Escape)
-            {
-                Delay();
-                return;
-            }
-            newGameKeyInfo = KeyCheck(newGameKeyInfo);
+            ShowWelcomeInTheGameMessage();
+
+            newGameKeyInfo = ReadKey();
+
             while (newGameKeyInfo.Key == ConsoleKey.Enter)
             {
+                prediction = GetPrediction();
+                if (!prediction.HasValue)
+                    break;
+
+                predictedResult = prediction.Value;
+
+                calculatedResult = rand.Next(1, 3);
+                ShowLoading();
+
+                Console.WriteLine();
+                Console.WriteLine();
+
+                CreateGameResultMessageAndShow(predictedResult, calculatedResult);
+
+                ShowPlayAgainText();
+                newGameKeyInfo = ReadKey();
+            }
+
+            ShowLoading();
+        }
+
+        private static void CreateGameResultMessageAndShow(int predictedResult, int calculatedResult)
+        {
+            string resultMessage = predictedResult == calculatedResult ? "Ура, вы угадали!" : "Вы не угадали, попробуйте ещё!";
+            Console.WriteLine(resultMessage);
+        }
+
+        //Nullable type
+        private static int? GetPrediction()
+        {
+            ConsoleKeyInfo predictedResultKeyInfo;
+            int predictedResult = -1;
+
+            do
+            {
+                Console.WriteLine("Угадайте результат(нажмите соответствующую клавишу):");
+                Console.WriteLine("1 - Орел");
+                Console.WriteLine("2 - Решка");
+                Console.WriteLine();
                 do
                 {
-                    Console.WriteLine("Угадайте результат(нажмите соответствующую клавишу):");
-                    Console.WriteLine("1 - Орел");
-                    Console.WriteLine("2 - Решка");
-                    Console.WriteLine();
-
-                    predictedResultKeyInfo = Console.ReadKey();
-                    //print key
-                    Console.WriteLine();
-
-                    //break line
-                    Console.WriteLine();
-
-                    if (predictedResultKeyInfo.Key == ConsoleKey.D1)
-                    {
-                        predictedResult = 1;
-                    }
-                    else if (predictedResultKeyInfo.Key == ConsoleKey.D2)
-                    {
-                        predictedResult = 2;
-                    }
-                    else if (predictedResultKeyInfo.Key == ConsoleKey.Escape)
-                    {
-                        Delay();
-                        return;
+                    predictedResultKeyInfo = Console.ReadKey(true);
+                    if (predictedResultKeyInfo.Key != ConsoleKey.D1 && predictedResultKeyInfo.Key != ConsoleKey.D2 && predictedResultKeyInfo.Key != ConsoleKey.Escape) {
+                        Console.WriteLine("Неверная клавиша. Повторите Ввод.");
+                        Console.WriteLine();
+                        //print key
                     }
                     else
                     {
-                        predictedResult = -1;
-                        Console.WriteLine("Неверная клавиша. Повторите Ввод.");
-                        Console.WriteLine();
+                        break;
                     }
-
-                } while (predictedResult == -1);
-
-                // get result
-                result = rand.Next(1, 3);
-
-                Delay();
-
-                Console.WriteLine();
-                Console.WriteLine();
-
-                string resultMessage = predictedResult == result ? "Ура, вы угадали!" : "Вы не угадали, попробуйте ещё!";
-                Console.WriteLine(resultMessage);
-
-                PlayAgain();
-                newGameKeyInfo = Console.ReadKey(true);
-                if (newGameKeyInfo.Key == ConsoleKey.Escape)
-                {
-                    Delay();
-                    return;
                 }
-                newGameKeyInfo = KeyCheck(newGameKeyInfo);
-            }
+                 while (predictedResultKeyInfo.Key != ConsoleKey.D1 && predictedResultKeyInfo.Key != ConsoleKey.D2 && predictedResultKeyInfo.Key != ConsoleKey.Escape);
+                Console.WriteLine(predictedResultKeyInfo.KeyChar);              
+                //break line
+                Console.WriteLine();
+                predictedResult = (int)predictedResultKeyInfo.Key - 48;
+                if (predictedResultKeyInfo.Key == ConsoleKey.Escape)
+                {
+                    return null;
+                }
+                if (predictedResult <= 0 || predictedResult > 2)
+                {
+                    Console.WriteLine("Неверная клавиша. Повторите Ввод.");
+                    Console.WriteLine();
+                }
+
+            } while (predictedResult != 1 && predictedResult != 2);
+
+            return predictedResult;
         }
 
-        private static void PlayAgain()
+        private static void ShowPlayAgainText()
         {
             Console.WriteLine();
             Console.WriteLine("Нажмите Enter для начала новой игры");
@@ -94,7 +104,7 @@ namespace HeadsAndTails
             Console.WriteLine();
         }
 
-        private static void WelcomeInTheGame()
+        private static void ShowWelcomeInTheGameMessage()
         {
             Console.WriteLine("------------------------------------------");
             Console.WriteLine("Игра Орёл и Решка, от \"GOR\"! ");
@@ -105,14 +115,20 @@ namespace HeadsAndTails
             Console.WriteLine();
         }
 
-        private static ConsoleKeyInfo KeyCheck(ConsoleKeyInfo newGameKeyInfo)
+        private static ConsoleKeyInfo ReadKey()
         {
-            while (newGameKeyInfo.Key != ConsoleKey.Enter && newGameKeyInfo.Key != ConsoleKey.Escape)
+            ConsoleKeyInfo newGameKeyInfo;
+            do
+            {
                 newGameKeyInfo = Console.ReadKey(true);
+            }
+            while (newGameKeyInfo.Key != ConsoleKey.Enter && newGameKeyInfo.Key != ConsoleKey.Escape);
+
+
             return newGameKeyInfo;
         }
 
-        private static void Delay()
+        private static void ShowLoading()
         {
             for (int i = 0; i < 10; i++)
             {
